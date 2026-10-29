@@ -33,13 +33,14 @@ node bin/gembuff.js test
 
 ## Office setup (Google Workspace accounts)
 
-Each person signs in with their own Workspace account on their own machine. Nobody shares a login or a quota.
+Each person gets their own free Gemini key from their own Workspace account. Nobody shares a key or a quota.
 
-1. **Once, by a Workspace admin:** in Google Cloud Console, create an OAuth client of type *Desktop app* under an *Internal* consent screen for the organization. Internal limits sign-in to the domain and avoids the 7-day refresh-token expiry of Testing mode. Put the client ID and secret in each person’s `.env` as `GEMBUFF_OAUTH_CLIENT_ID` and `GEMBUFF_OAUTH_CLIENT_SECRET`.
-2. **Each person, once:** `npm run login:loop -- oauth-loopback`. The browser opens, they sign in with their Workspace account and approve consent. The loop then makes a real Gemini call to confirm.
-3. **Fallback without a browser sign-in:** `npm run login:loop -- api-key` after pasting a personal AI Studio key into `.env`.
+1. **Each person, once:** open https://aistudio.google.com/app/apikey, sign in with their Workspace account, create a key, and put `GEMINI_API_KEY=...` in their `.env`.
+2. **Verify:** `npm run login:loop -- api-key`. It makes a real Gemini call and reports the result.
 
-Tokens stay in `.gembuff/secrets/oauth-loopback.json` on that person’s machine and are never committed.
+Why not OAuth for everyone: Gemini needs the `generative-language` OAuth scope, and Google refuses it on OAuth clients created through its IAM API (`INVALID_ARGUMENT: Invalid: [generative-language.retriever]`, observed live in project gurutherobot). The gcloud browser login is also blocked for that scope ("This app is blocked"). The OAuth loopback code stays in the repo for any setup where Google accepts the scope.
+
+Keys stay in each person’s `.env` and are never committed.
 
 ## Serving through acptoapi
 
