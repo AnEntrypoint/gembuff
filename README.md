@@ -31,6 +31,16 @@ node bin/gembuff.js test
 
 `test` tries methods in the order listed in `lib/auth/index.js` and makes one real `generateContent` call with the first that works. Use `--prefer <method>` to force one.
 
+## Office setup (Google Workspace accounts)
+
+Each person signs in with their own Workspace account on their own machine. Nobody shares a login or a quota.
+
+1. **Once, by a Workspace admin:** in Google Cloud Console, create an OAuth client of type *Desktop app* under an *Internal* consent screen for the organization. Internal limits sign-in to the domain and avoids the 7-day refresh-token expiry of Testing mode. Put the client ID and secret in each person’s `.env` as `GEMBUFF_OAUTH_CLIENT_ID` and `GEMBUFF_OAUTH_CLIENT_SECRET`.
+2. **Each person, once:** `npm run login:loop -- oauth-loopback`. The browser opens, they sign in with their Workspace account and approve consent. The loop then makes a real Gemini call to confirm.
+3. **Fallback without a browser sign-in:** `npm run login:loop -- api-key` after pasting a personal AI Studio key into `.env`.
+
+Tokens stay in `.gembuff/secrets/oauth-loopback.json` on that person’s machine and are never committed.
+
 ## Serving through acptoapi
 
 ```bash
