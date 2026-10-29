@@ -1,0 +1,26 @@
+# Secrets and credentials. Nothing in these paths may ever be committed.
+.env
+.env.*
+!.env.example
+.gembuff/
+**/secrets/
+**/*.pem
+**/*.key
+**/*.p12
+**/service-account*.json
+**/*service_account*.json
+**/application_default_credentials.json
+**/oauth_creds.json
+**/oauth.json
+**/oauth-*.json
+**/tokens/
+**/*.token
+**/credentials.db
+**/access_tokens.db
+
+# Local tooling state
+.gm/
+node_modules/
+*.log
+.DS_Store
+Thumbs.db

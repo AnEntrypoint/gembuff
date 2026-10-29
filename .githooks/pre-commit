@@ -1,0 +1,4 @@
+#!/bin/sh
+# Blocks any commit that stages a credential or a secret-looking value.
+# Enable once per clone: npm run hooks
+exec node "$(git rev-parse --show-toplevel)/scripts/secret-scan.js" --staged

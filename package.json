@@ -1,0 +1,24 @@
+{
+  "name": "gembuff",
+  "version": "0.1.0",
+  "description": "Every free way to sign a person into Google and call Google APIs without paying extra, as runnable examples plus one CLI that picks a working credential.",
+  "license": "MIT",
+  "author": "AnEntrypoint",
+  "private": false,
+  "bin": {
+    "gembuff": "bin/gembuff.js"
+  },
+  "scripts": {
+    "doctor": "node bin/gembuff.js doctor",
+    "test": "node --test",
+    "check-secrets": "node scripts/secret-scan.js --tracked && node scripts/secret-scan.js --history",
+    "hooks": "git config core.hooksPath .githooks",
+    "acpto": "node bin/gembuff.js serve"
+  },
+  "engines": {
+    "node": ">=20.19.0"
+  },
+  "dependencies": {
+    "acptoapi": "github:AnEntrypoint/acptoapi#main"
+  }
+}
