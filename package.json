@@ -13,7 +13,8 @@
     "test": "node --test",
     "check-secrets": "node scripts/secret-scan.js --tracked && node scripts/secret-scan.js --history",
     "hooks": "git config core.hooksPath .githooks",
-    "acpto": "node bin/gembuff.js serve"
+    "acpto": "node bin/gembuff.js serve",
+    "login:loop": "node scripts/login-loop.js"
   },
   "engines": {
     "node": ">=20.19.0"
